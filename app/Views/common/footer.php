@@ -202,7 +202,11 @@
   <!-- 
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="<?= base_url('public/assets/js/script.js');?>"></script>
+  <script src="<?= base_url('public/assets/js/bootstrap.min.js');?>"></script>
+  <script src="<?= base_url('public/assets/js/jquery.min.js');?>"></script>
+
+
 
   <!-- 
     - ionicon link

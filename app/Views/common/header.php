@@ -15,8 +15,8 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
+  <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css');?>">
+  <link href="<?= base_url('public/assets/css/bootstrap.min.css');?>" rel="stylesheet" type="text/css" />
   <!-- 
     - google font link
   -->
@@ -37,8 +37,8 @@
 
     <div class="overlay" data-overlay></div>
 
-    <div class="header-top">
-      <div class="container">
+    <div class="header-top mb-1">
+      <div class="container p-1">
 
         <ul class="header-top-list">
 
@@ -53,8 +53,8 @@
           <li>
             <a href="#" class="header-top-link">
               <ion-icon name="location-outline"></ion-icon>
-
-              <address>15/A, Nest Tower, NYC</address>
+              <p class="m-0">15/A, Nest Tower, NYC</p>
+              <!-- <address>15/A, Nest Tower, NYC</address> -->
             </a>
           </li>
 
@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <div class="header-bottom">
+    <div class="header-bottom p-2">
       <div class="container">
 
         <a href="#" class="logo">
@@ -124,7 +124,7 @@
               </li>
 
               <li>
-                <a href="<?= base_url('projects') ?>" class="navbar-link" data-nav-link>Projects</a>
+                <a href="<?= base_url('public/projects') ?>" class="navbar-link" data-nav-link>Projects</a>
               </li>
 
               <li>

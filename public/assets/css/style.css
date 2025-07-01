@@ -1,15 +1,6 @@
 /*-----------------------------------*\
   #style.css
 \*-----------------------------------*/
-
-/**
- * copyright 2022 codewithsadee
- */
-
-
-
-
-
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
@@ -1585,7 +1576,7 @@ button, a { transition: var(--transition); }
   .header.active .header-bottom {
     position: fixed;
     bottom: auto;
-    top: -94px;
+    top: -122px;
     padding-block: 20px;
     box-shadow: 0 10px 50px hsla(237, 71%, 52%, 0.2);
     animation: slideDown 0.25s ease-out forwards;
