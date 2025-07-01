@@ -1,6 +1,10 @@
 
 <?= view('common/header') ?>
+    <main>
+        <article>
 
-<?= view($content) ?>
-    
+            <?= view($content) ?>
+            
+        </article>
+    </main>
 <?= view('common/footer') ?>

@@ -124,7 +124,7 @@
               </li>
 
               <li>
-                <a href="#about" class="navbar-link" data-nav-link>About</a>
+                <a href="<?= base_url('projects') ?>" class="navbar-link" data-nav-link>Projects</a>
               </li>
 
               <li>
@@ -132,7 +132,7 @@
               </li>
 
               <li>
-                <a href="#property" class="navbar-link" data-nav-link>Property</a>
+                <a href="#about" class="navbar-link" data-nav-link>About</a>
               </li>
 
               <li>
@@ -150,7 +150,7 @@
 
         <div class="header-bottom-actions">
 
-          <button class="header-bottom-actions-btn" aria-label="Search">
+          <!-- <button class="header-bottom-actions-btn" aria-label="Search">
             <ion-icon name="search-outline"></ion-icon>
 
             <span>Search</span>
@@ -166,7 +166,7 @@
             <ion-icon name="cart-outline"></ion-icon>
 
             <span>Cart</span>
-          </button>
+          </button> -->
 
           <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu">
             <ion-icon name="menu-outline"></ion-icon>
