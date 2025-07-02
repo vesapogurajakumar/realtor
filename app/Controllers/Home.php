@@ -5,6 +5,7 @@ namespace App\Controllers;
 class Home extends BaseController
 {
     public function __construct()
+    {
         // Here initilize all the data 
     }
 
