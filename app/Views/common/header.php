@@ -122,7 +122,7 @@
             <ul class="navbar-list">
 
               <li>
-                <a href="#home" class="navbar-link" data-nav-link>Home</a>
+                <a href="<?= base_url('public/') ?>" class="navbar-link" data-nav-link>Home</a>
               </li>
 
               <li class="nav-item dropdown">
@@ -147,7 +147,7 @@
               </li>
 
               <li>
-                <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
+                <a href="<?= base_url('public/contact') ?>" class="navbar-link" data-nav-link>Contact</a>
               </li>
 
             </ul>

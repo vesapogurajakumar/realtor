@@ -82,4 +82,21 @@ class Home extends BaseController
         // return view('content/home/home');
         return view('common/body' , $data);
     }
+
+    // Added by Raja Kumar [02-07-2025] Default page where contact will be shown
+    public function contact(): string
+    {   
+        $data = [
+            'content' => 'content/home/contact'
+        ];
+        // return view('content/home/home');
+        return view('common/body' , $data);
+    }
+
+    // Added by Raja Kumar [02-07-2025] Fetch contact values
+    public function contactfetch(): string
+    {  
+        print_r($this->request->getPost()); die;
+        // Here you can process the data, e.g., save it to a database or send an email
+    }
 }
