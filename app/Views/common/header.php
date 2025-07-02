@@ -25,10 +25,12 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
+
+    <script src="<?= base_url('public/assets/js/jquery.min.js');?>"></script>
+    <script src="<?= base_url('public/assets/js/bootstrap.min.js');?>"></script>
 </head>
 
 <body>
-
   <!-- 
     - #HEADER
   -->
@@ -123,8 +125,13 @@
                 <a href="#home" class="navbar-link" data-nav-link>Home</a>
               </li>
 
-              <li>
-                <a href="<?= base_url('public/projects') ?>" class="navbar-link" data-nav-link>Projects</a>
+              <li class="nav-item dropdown">
+                <a href="<?= base_url('public/projects') ?>" class="navbar-link dropdown-toggle" data-nav-link id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
+                <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
+                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project1') ?>">Neems Boro Phase 1</a></li>
+                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project2') ?>">Neems Boro Phase 2</a></li>
+                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project3') ?>">Neems Boro Phase 1 Neems Boro Phase </a></li>
+                </ul>
               </li>
 
               <li>
