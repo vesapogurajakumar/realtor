@@ -100,4 +100,15 @@ class Home extends BaseController
         print_r($this->request->getPost()); die;
         // Here you can process the data, e.g., save it to a database or send an email
     }
+
+    // Added by Raja Kumar [023-07-2025] Default page where project will be shown
+    public function projectScreen1(): string
+    {  
+        $data = [
+            'content' => 'content/projects/project1'
+        ];
+        // return view('content/home/home');
+        return view('common/body' , $data);
+        // Here you can process the data, e.g., save it to a database or send an email
+    }
 }

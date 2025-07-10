@@ -23,3 +23,6 @@ $routes->get('contact', 'Home::contact');
 // This route is used to handle the form submission and send the data to the server
 $routes->post('contactfetch', 'Home::contactfetch');
 
+
+$routes->get('project/(:num)', 'Home::projectScreen1/$1');
+

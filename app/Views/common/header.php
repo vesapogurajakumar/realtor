@@ -66,25 +66,25 @@
           <ul class="header-top-social-list">
 
             <li>
-              <a href="#" class="header-top-social-link">
+              <a href="https://www.facebook.com/" class="header-top-social-link">
                 <ion-icon name="logo-facebook"></ion-icon>
               </a>
             </li>
 
             <li>
-              <a href="#" class="header-top-social-link">
+              <a href="https://www.twitter.com" class="header-top-social-link">
                 <ion-icon name="logo-twitter"></ion-icon>
               </a>
             </li>
 
             <li>
-              <a href="#" class="header-top-social-link">
+              <a href="https://www.instagram.com" class="header-top-social-link">
                 <ion-icon name="logo-instagram"></ion-icon>
               </a>
             </li>
 
             <li>
-              <a href="#" class="header-top-social-link">
+              <a href="https://www.pinterest.com" class="header-top-social-link">
                 <ion-icon name="logo-pinterest"></ion-icon>
               </a>
             </li>
@@ -101,7 +101,7 @@
       <div class="container">
 
         <a href="#" class="logo">
-          <img src="./assets/images/logo.png" alt="Homeverse logo">
+          <img src="<?= base_url().'public/assets/images/logo.png' ?>" alt="Homeverse logo">
         </a>
 
         <nav class="navbar" data-navbar>
@@ -109,7 +109,7 @@
           <div class="navbar-top">
 
             <a href="#" class="logo">
-              <img src="./assets/images/logo.png" alt="Homeverse logo">
+              <img src="<?= base_url().'public/assets/images/logo.png' ?>" alt="Homeverse logo">
             </a>
 
             <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
@@ -128,9 +128,9 @@
               <li class="nav-item dropdown">
                 <a href="<?= base_url('public/projects') ?>" class="navbar-link dropdown-toggle" data-nav-link id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
                 <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
-                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project1') ?>">Neems Boro Phase 1</a></li>
-                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project2') ?>">Neems Boro Phase 2</a></li>
-                  <li><a class="dropdown-item" href="<?= base_url('public/projects/project3') ?>">Neems Boro Phase 1 Neems Boro Phase </a></li>
+                  <li><a class="dropdown-item" href="<?= base_url('public/project/1') ?>">Neems Boro Phase 1</a></li>
+                  <li><a class="dropdown-item" href="<?= base_url('public/project/2') ?>">Neems Boro Phase 2</a></li>
+                  <li><a class="dropdown-item" href="<?= base_url('public/project/3') ?>">Neems Boro Phase 1 Neems Boro Phase </a></li>
                 </ul>
               </li>
 
@@ -187,3 +187,7 @@
     </div>
 
   </header>
+  <!-- <script>
+  document.addEventListener('contextmenu', event => event.preventDefault());
+</script> -->
+
