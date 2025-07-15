@@ -27,6 +27,7 @@ class Home extends BaseController
          $data['latest_feed'] = [
             'section1' => [
                 'src' => './assets/images/blog-1.png',
+                'href' => 'public/project/1',
                 'address' => 'Belmont Gardens, Chicago',
                 'discription' => 'The Most Inspiring Interior Design Of 2021',
                 'discription2' => 'Beautiful Huge 1 Family House In Heart Of Westbury. Newly Renovated With New Wood',
@@ -45,6 +46,7 @@ class Home extends BaseController
             ],
             'section2' => [
                 'src' => './assets/images/blog-2.jpg',
+                'href' => 'public/project/2',
                 'address' => 'Belmont Gardens, Chicago2',
                 'discription' => 'The Most Inspiring Interior Design Of 2021',
                 'discription2' => 'Beautiful Huge 1 Family House In Heart Of Westbury. Newly Renovated With New Wood2',
@@ -63,6 +65,7 @@ class Home extends BaseController
             ],
             'section3' => [
                 'src' => './assets/images/blog-3.jpg',
+                'href' => 'public/project/3',
                 'address' => 'Belmont Gardens, Chicago3',
                 'discription' => 'The Most Inspiring Interior Design Of 2021',
                 'discription2' => 'Beautiful Huge 1 Family House In Heart Of Westbury. Newly Renovated With New Wood3',
