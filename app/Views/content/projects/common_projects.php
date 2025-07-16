@@ -13,7 +13,7 @@
 
                 <figure class="card-banner">
 
-                  <a href="#">
+                  <a href="<?= base_url() . (isset($value['href']) ? $value['href'] : '#') ?>">
                     <img src="<?= isset($value['src']) ? $value['src'] : '' ?>" alt="New Apartment Nice View" class="w-100">
                   </a>
 
