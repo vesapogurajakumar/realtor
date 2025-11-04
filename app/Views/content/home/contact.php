@@ -52,7 +52,7 @@
             </div>
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="disclaimer" required>
-                <label class="form-check-label" for="disclaimer">I authorize Nirvana Homespaces LLP and its representatives to Call, SMS, Email or WhatsApp me about its updates and notifications. This consent overrides any registration for DND / NDNC.</label>
+                <label class="form-check-label" for="disclaimer">I agree to receive updates and notifications from Nirvana Homespaces LLP via call, SMS, email, or WhatsApp.</label>
             </div>
 
             <button type="submit" class="btn btn-submit w-100">Submit</button>

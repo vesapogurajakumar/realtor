@@ -4,7 +4,7 @@
         color: #fff;
         padding: 30px;
         border-radius: 8px;
-        max-width: 600px;
+        max-width: 900px;
         margin: 0 auto;
     }
 </style>
@@ -259,12 +259,12 @@
 
 
 
-<!-- <section class="maps">
-    <div class="container mb-2">
+<section class="maps">
+    <div class="container">
         <div class="form-container">
             <div class="map-item">
-                <?php //$this->include('common/map') ?>
+                <?= view('common/map') ?>
             </div>
         </div>
     </div>
-</section> -->
+</section>

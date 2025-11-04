@@ -16,7 +16,7 @@
               <p class="card-text">We can help you realize your dream of a new home</p>
             </div>
 
-            <button class="btn cta-btn">
+            <button class="btn cta-btn d-flex text-white bg-slate-700">
               <span>Explore Properties</span>
 
               <ion-icon name="arrow-forward-outline"></ion-icon>

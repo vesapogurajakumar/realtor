@@ -1,16 +1,17 @@
 <!-- Leaflet Map Partial - Include CSS and JS dependencies before this -->
 <!-- Dependencies: Leaflet CSS, Leaflet JS, Bootstrap CSS (optional) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <style>
-.container {
-    max-width: 60%;
+/* Unique container class to avoid conflicts */
+.leaflet-map-container {
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
 
-.map-container {
+.leaflet-map-box {
     position: relative;
     background: white;
     border-radius: 20px;
@@ -20,12 +21,14 @@
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-#map {
-    height: 500px;
-    width: 100%;
+/* Unique map ID to avoid conflicts */
+#leafletMap {
+    height: 300px;
+    /* width: 100%; */
 }
 
-.controls {
+/* Unique controls class */
+.map-controls {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -54,7 +57,8 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.info-panel {
+/* Unique info panel class */
+.info-panel-custom {
     position: absolute;
     bottom: 20px;
     left: 20px;
@@ -67,40 +71,40 @@
     z-index: 1000;
 }
 
-.info-panel h3 {
+.info-panel-custom h3 {
     margin: 0 0 10px 0;
     color: #333;
     font-size: 1.1rem;
 }
 
-.info-panel p {
+.info-panel-custom p {
     margin: 5px 0;
     color: #666;
     font-size: 0.9rem;
 }
 </style>
 
-<div class="container mt-2 mb-2">
-    <div class="map-container">
-        <div class="controls">
+<div class="leaflet-map-container mt-2 mb-2">
+    <div class="leaflet-map-box">
+        <div class="map-controls">
             <button class="control-btn" onclick="toggleLayer()">Toggle Layer</button>
             <button class="control-btn" onclick="flyToLocation()">Fly to Hyderabad</button>
         </div>
         
-        <div class="info-panel">
+        <!-- <div class="info-panel-custom">
             <h3>Map Information</h3>
             <p id="markerCount">Markers: 1</p>
             <p id="currentView">View: City</p>
             <p id="lastAction">Action: Map initialized</p>
-        </div>
+        </div> -->
         
-        <div id="map"></div>
+        <div id="leafletMap" class=""></div>
     </div>
 </div>
 
 <script>
-// Initialize map
-const map = L.map('map', {
+// Initialize map with a unique ID
+const map = L.map('leafletMap', {
     center: [17.4442252, 78.3869568], // Hyderabad coordinates
     zoom: 12,
     zoomControl: true
