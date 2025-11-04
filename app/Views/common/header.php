@@ -157,24 +157,6 @@
 
         <div class="header-bottom-actions">
 
-          <!-- <button class="header-bottom-actions-btn" aria-label="Search">
-            <ion-icon name="search-outline"></ion-icon>
-
-            <span>Search</span>
-          </button>
-
-          <button class="header-bottom-actions-btn" aria-label="Profile">
-            <ion-icon name="person-outline"></ion-icon>
-
-            <span>Profile</span>
-          </button>
-
-          <button class="header-bottom-actions-btn" aria-label="Cart">
-            <ion-icon name="cart-outline"></ion-icon>
-
-            <span>Cart</span>
-          </button> -->
-
           <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu">
             <ion-icon name="menu-outline"></ion-icon>
 
@@ -187,7 +169,3 @@
     </div>
 
   </header>
-  <!-- <script>
-  document.addEventListener('contextmenu', event => event.preventDefault());
-</script> -->
-
