@@ -6,9 +6,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
-    public string $recipients = '';
+    public string $fromEmail  = 'no-reply@vestarealty.com';
+    public string $fromName   = 'Vesta Real Estate';
+    public string $recipients = 'hello@vestarealty.com';
 
     /**
      * The "user agent"
