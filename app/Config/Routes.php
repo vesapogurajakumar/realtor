@@ -11,18 +11,26 @@ $routes->set404Override();
 /**
  * @var RouteCollection $routes
  */
+
+// ---- Marketing / static pages ----
 $routes->get('/', 'Home::index');
+$routes->get('about', 'Home::about');
 
-// Default page where all the projects categories will be shown
-$routes->get('projects', 'Home::projects');
+// ---- Contact & lead capture ----
+$routes->get('contact', 'Home::contactPage');
+$routes->post('contact', 'Home::submitContact');
+$routes->post('subscribe', 'Home::subscribe');
 
-// Default page where contact screen will be shown
-$routes->get('contact', 'Home::contact');
+// ---- Listings & property detail ----
+$routes->get('listings', 'Listings::index');
+$routes->match(['get', 'post'], 'api/properties', 'Listings::filter');   // AJAX filter endpoint
+$routes->get('property/(:segment)', 'Listings::detail/$1');
 
-//To fetch contact form data
-// This route is used to handle the form submission and send the data to the server
-$routes->post('contactfetch', 'Home::contactfetch');
+// ---- Blog ----
+$routes->get('blog', 'Blog::index');
+$routes->post('blog/comment', 'Blog::comment');
+$routes->get('blog/(:segment)', 'Blog::post/$1');
 
-
-$routes->get('project/(:num)', 'Home::projectScreen1/$1');
-
+// ---- SEO ----
+$routes->get('sitemap.xml', 'Seo::sitemap');
+$routes->get('robots.txt', 'Seo::robots');
