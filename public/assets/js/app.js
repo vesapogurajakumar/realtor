@@ -63,6 +63,7 @@
     syncHearts();
   });
   syncHearts();
+  window.syncSavedHearts = syncHearts; // re-applied after AJAX renders cards
 
   /* ---------- Animated stat counters ---------- */
   const animateCount = (el) => {
