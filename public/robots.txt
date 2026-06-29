@@ -1,2 +1,5 @@
 User-agent: *
-Disallow: 
+Allow: /
+Disallow: /writable/
+
+Sitemap: http://localhost/realtor/public/sitemap.xml
