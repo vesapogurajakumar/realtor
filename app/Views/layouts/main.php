@@ -112,6 +112,7 @@ $activeNav       = $activeNav       ?? '';
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+  <script>window.VESTA = { csrfUrl: <?= json_encode(base_url('public/csrf')) ?> };</script>
   <script src="<?= base_url('public/assets/js/app.js') ?>" defer></script>
 
   <?= $this->renderSection('scripts') ?>

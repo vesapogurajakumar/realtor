@@ -51,9 +51,29 @@ class PropertyService
         $data['properties']    ??= [];
         $data['neighborhoods'] ??= [];
 
+        // Merge admin-created listings from the database (newest first), if available.
+        try {
+            if (class_exists(\App\Models\PropertyModel::class)) {
+                $dbProps = (new \App\Models\PropertyModel())->allNormalized();
+                if ($dbProps !== []) {
+                    $data['properties'] = array_merge($dbProps, $data['properties']);
+                }
+            }
+        } catch (\Throwable $e) {
+            // No DB connection or table yet — fall back to JSON only.
+        }
+
         $this->cache->save(self::CACHE_KEY, $data, self::CACHE_TTL);
 
         return $data;
+    }
+
+    /**
+     * Invalidate the cached dataset (call after adding/removing a DB listing).
+     */
+    public function clearCache(): void
+    {
+        $this->cache->delete(self::CACHE_KEY);
     }
 
     /**

@@ -152,6 +152,15 @@
         if (submit) { submit.disabled = true; submit.innerHTML = 'Sending…'; }
         if (alertBox) alertBox.className = 'form-alert';
 
+        // Refresh CSRF token right before submit so a stale/cached page never 403s.
+        if (window.VESTA && window.VESTA.csrfUrl) {
+          try {
+            const t = await fetch(window.VESTA.csrfUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }).then((r) => r.json());
+            const tokenField = form.querySelector('input[name="' + t.name + '"]');
+            if (tokenField) tokenField.value = t.hash;
+          } catch (e) { /* fall back to embedded token */ }
+        }
+
         try {
           const res = await fetch(form.action, {
             method: 'POST',

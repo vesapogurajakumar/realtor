@@ -181,6 +181,15 @@ class Home extends BaseController
         }
     }
 
+    /**
+     * Returns the current CSRF token (name + hash) as JSON.
+     * Forms fetch this immediately before submitting to avoid stale-token 403s.
+     */
+    public function csrf()
+    {
+        return $this->response->setJSON(['name' => csrf_token(), 'hash' => csrf_hash()]);
+    }
+
     private function jsonOk(string $message)
     {
         return $this->response->setJSON([
