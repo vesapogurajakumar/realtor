@@ -66,6 +66,67 @@ class Admin extends BaseController
         ]);
     }
 
+    // ----------------------------------------------------------------- Leads
+
+    public function leads(): string
+    {
+        $perPage = 15;
+        $page    = max(1, (int) $this->request->getGet('page'));
+        $rows    = [];
+        $total   = 0;
+
+        try {
+            $model = new LeadModel();
+            $total = $model->countAllResults();
+            $rows  = $model->orderBy('id', 'DESC')->findAll($perPage, ($page - 1) * $perPage);
+        } catch (\Throwable $e) {
+            session()->setFlashdata('error', 'Database not connected.');
+        }
+
+        $pages = (int) max(1, ceil($total / $perPage));
+
+        return view('admin/leads', [
+            'title'    => 'Leads | Vesta Admin',
+            'active'   => 'leads',
+            'rows'     => $rows,
+            'total'    => $total,
+            'page'     => min($page, $pages),
+            'pages'    => $pages,
+            'pageUrl'  => static fn (int $p) => base_url('public/admin/leads?page=' . $p),
+        ]);
+    }
+
+    /**
+     * Stream all leads as a CSV download.
+     */
+    public function exportLeads()
+    {
+        $rows = [];
+        try {
+            $rows = (new LeadModel())->orderBy('id', 'DESC')->findAll();
+        } catch (\Throwable $e) {
+            return redirect()->to(base_url('public/admin/leads'))->with('error', 'Database not connected.');
+        }
+
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, ['ID', 'Name', 'Email', 'Phone', 'Interest', 'Message', 'Preferred Time', 'Source', 'IP', 'Created At']);
+        foreach ($rows as $l) {
+            fputcsv($handle, [
+                $l['id'] ?? '', $l['name'] ?? '', $l['email'] ?? '', $l['phone'] ?? '',
+                $l['interest'] ?? '', $l['message'] ?? '', $l['preferred_time'] ?? '',
+                $l['source'] ?? '', $l['ip'] ?? '', $l['created_at'] ?? '',
+            ]);
+        }
+        rewind($handle);
+        $csv = stream_get_contents($handle);
+        fclose($handle);
+
+        return $this->response
+            ->setHeader('Content-Type', 'text/csv; charset=UTF-8')
+            ->setHeader('Content-Disposition', 'attachment; filename="leads-' . date('Y-m-d') . '.csv"')
+            ->setBody("\xEF\xBB\xBF" . $csv); // BOM for Excel UTF-8
+    }
+
     // ------------------------------------------------------------- Listings
 
     public function listings(): string

@@ -22,7 +22,10 @@
 </div>
 
 <div class="admin-panel">
-  <h3 style="font-family:var(--font-body); font-size:1.1rem; margin-bottom:1rem;">Recent Leads</h3>
+  <div class="flex items-center" style="justify-content:space-between; margin-bottom:1rem;">
+    <h3 style="font-family:var(--font-body); font-size:1.1rem;">Recent Leads</h3>
+    <a href="<?= base_url('public/admin/leads') ?>" class="btn btn--ghost btn--sm">View all &amp; export →</a>
+  </div>
   <?php if (empty($leads)): ?>
     <p class="muted">No leads captured yet (or DB not connected).</p>
   <?php else: ?>
