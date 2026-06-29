@@ -42,6 +42,10 @@ $routes->group('admin', ['filter' => 'adminauth'], static function ($routes) {
     $routes->get('listings/new', 'Admin::createListing');
     $routes->post('listings', 'Admin::storeListing');
     $routes->post('listings/(:num)/delete', 'Admin::deleteListing/$1');
+    $routes->get('comments', 'Admin::comments');
+    $routes->post('comments/(:num)/approve', 'Admin::approveComment/$1');
+    $routes->post('comments/(:num)/unapprove', 'Admin::unapproveComment/$1');
+    $routes->post('comments/(:num)/delete', 'Admin::deleteComment/$1');
 });
 
 // ---- SEO ----

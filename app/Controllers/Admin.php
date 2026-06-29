@@ -132,6 +132,56 @@ class Admin extends BaseController
         }
     }
 
+    // ------------------------------------------------------------- Comments
+
+    public function comments(): string
+    {
+        $rows = [];
+        try {
+            $rows = (new BlogCommentModel())->orderBy('id', 'DESC')->findAll();
+        } catch (\Throwable $e) {
+            session()->setFlashdata('error', 'Database not connected.');
+        }
+
+        return view('admin/comments', [
+            'title'  => 'Comments | Vesta Admin',
+            'active' => 'comments',
+            'rows'   => $rows,
+        ]);
+    }
+
+    public function approveComment(int $id)
+    {
+        return $this->setCommentApproval($id, 1, 'Comment approved — it is now visible on the post.');
+    }
+
+    public function unapproveComment(int $id)
+    {
+        return $this->setCommentApproval($id, 0, 'Comment hidden.');
+    }
+
+    public function deleteComment(int $id)
+    {
+        try {
+            (new BlogCommentModel())->delete($id);
+
+            return redirect()->back()->with('message', 'Comment deleted.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Could not delete comment.');
+        }
+    }
+
+    private function setCommentApproval(int $id, int $approved, string $msg)
+    {
+        try {
+            (new BlogCommentModel())->update($id, ['is_approved' => $approved]);
+
+            return redirect()->back()->with('message', $msg);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Could not update comment.');
+        }
+    }
+
     // -------------------------------------------------------------- Helpers
 
     /** @param class-string $model */

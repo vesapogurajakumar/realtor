@@ -69,11 +69,20 @@
         <?php foreach ($comments as $c): ?>
           <tr>
             <td><strong><?= esc($c['name'] ?? '') ?></strong><br><span class="muted" style="font-size:.82rem;"><?= esc(reading_excerpt((string) ($c['comment'] ?? ''), 70)) ?></span></td>
-            <td style="text-align:right; white-space:nowrap;"><?= ((int) ($c['is_approved'] ?? 0) === 1) ? '<span style="color:#1e6b3a;">Approved</span>' : '<span style="color:#a4271b;">Pending</span>' ?></td>
+            <td style="text-align:right; white-space:nowrap;">
+              <?php if ((int) ($c['is_approved'] ?? 0) === 1): ?>
+                <span style="color:#1e6b3a; font-weight:600;">Approved</span>
+              <?php else: ?>
+                <form action="<?= base_url('public/admin/comments/' . $c['id'] . '/approve') ?>" method="post" style="display:inline;">
+                  <?= csrf_field() ?>
+                  <button class="btn btn--gold btn--sm">Approve</button>
+                </form>
+              <?php endif ?>
+            </td>
           </tr>
         <?php endforeach ?>
       </tbody></table>
-      <p class="muted mt-1" style="font-size:.82rem;">Approve in phpMyAdmin: <code>UPDATE blog_comments SET is_approved=1 WHERE id=?;</code></p>
+      <p class="muted mt-1" style="font-size:.82rem;"><a href="<?= base_url('public/admin/comments') ?>">Manage all comments →</a></p>
     <?php endif ?>
   </div>
 </div>

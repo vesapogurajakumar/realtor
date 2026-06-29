@@ -4,6 +4,7 @@ $active = $active ?? '';
 $nav    = [
     'dashboard' => ['Dashboard', 'grid-outline', base_url('public/admin')],
     'listings'  => ['Listings', 'business-outline', base_url('public/admin/listings')],
+    'comments'  => ['Comments', 'chatbubbles-outline', base_url('public/admin/comments')],
 ];
 ?>
 <!DOCTYPE html>
