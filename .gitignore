@@ -5,6 +5,10 @@ writable/session/*
 writable/uploads/*
 writable/cache/*
 
+# Lead-capture fallback storage (contains customer PII — never commit)
+writable/leads/*
+writable/comments/*
+
 # Environment files
 .env
 .env.*
