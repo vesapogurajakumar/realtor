@@ -37,7 +37,7 @@ class Admin extends BaseController
             return redirect()->to(base_url('public/admin'));
         }
 
-        return redirect()->back()->with('error', 'Incorrect password.');
+        return redirect()->to(base_url('public/admin/login'))->with('error', 'Incorrect password.');
     }
 
     public function logout()
@@ -101,13 +101,13 @@ class Admin extends BaseController
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('errors', $this->validator->getErrors());
         }
 
         try {
             $code = (new PropertyModel())->createFromForm($this->request->getPost());
             if ($code === false) {
-                return redirect()->back()->withInput()->with('error', 'Could not save the listing.');
+                return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Could not save the listing.');
             }
             Services::property()->clearCache();
 
@@ -116,7 +116,7 @@ class Admin extends BaseController
         } catch (\Throwable $e) {
             log_message('error', 'Listing save failed: {m}', ['m' => $e->getMessage()]);
 
-            return redirect()->back()->withInput()->with('error', 'Database error. Make sure migrations have run.');
+            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Database error. Make sure migrations have run.');
         }
     }
 
@@ -128,7 +128,7 @@ class Admin extends BaseController
 
             return redirect()->to(base_url('public/admin/listings'))->with('message', 'Listing deleted.');
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'Could not delete listing.');
+            return redirect()->to(base_url('public/admin/listings'))->with('error', 'Could not delete listing.');
         }
     }
 
@@ -165,9 +165,9 @@ class Admin extends BaseController
         try {
             (new BlogCommentModel())->delete($id);
 
-            return redirect()->back()->with('message', 'Comment deleted.');
+            return redirect()->to(base_url('public/admin/comments'))->with('message', 'Comment deleted.');
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'Could not delete comment.');
+            return redirect()->to(base_url('public/admin/comments'))->with('error', 'Could not delete comment.');
         }
     }
 
@@ -176,9 +176,9 @@ class Admin extends BaseController
         try {
             (new BlogCommentModel())->update($id, ['is_approved' => $approved]);
 
-            return redirect()->back()->with('message', $msg);
+            return redirect()->to(base_url('public/admin/comments'))->with('message', $msg);
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'Could not update comment.');
+            return redirect()->to(base_url('public/admin/comments'))->with('error', 'Could not update comment.');
         }
     }
 
