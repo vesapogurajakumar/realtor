@@ -35,7 +35,7 @@
           <li><a href="<?= base_url('public/about') ?>">Our Story</a></li>
           <li><a href="<?= base_url('public/contact') ?>">Contact</a></li>
           <li><a href="<?= base_url('public/contact') ?>">Careers</a></li>
-          <li><a href="<?= base_url('public/contact') ?>">List Your Property</a></li>
+          <li><a href="<?= base_url('public/contact') ?>?interest=Tour">Book a Viewing</a></li>
           <li><a href="<?= base_url('public/blog') ?>">Market Reports</a></li>
         </ul>
       </div>

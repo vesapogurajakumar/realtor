@@ -36,7 +36,7 @@ $nav       = [
         <ion-icon name="call-outline"></ion-icon>
         <span class="label">+1 (512) 555-0192</span>
       </a>
-      <a href="<?= base_url('public/contact') ?>" class="btn btn--gold btn--sm">List Your Property</a>
+      <a href="<?= base_url('public/contact') ?>?interest=Tour" class="btn btn--gold btn--sm">Book a Viewing</a>
       <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
