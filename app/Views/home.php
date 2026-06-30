@@ -259,7 +259,7 @@
           <div class="form-alert" data-alert></div>
           <div class="field-row">
             <div class="field"><label>Full Name</label><input class="input" type="text" name="name" required></div>
-            <div class="field"><label>Phone</label><input class="input" type="tel" name="phone" required></div>
+            <div class="field"><label>Phone</label><input class="input" type="tel" name="phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter a 10-digit mobile number" required></div>
           </div>
           <div class="field"><label>Email</label><input class="input" type="email" name="email" required></div>
           <div class="field"><label>Property Address / Message</label><textarea class="textarea" name="message" rows="3" placeholder="Tell us about your property…"></textarea></div>

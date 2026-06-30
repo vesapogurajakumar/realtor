@@ -142,7 +142,7 @@ $isRent = strtolower((string) ($p['status'] ?? '')) === 'for rent';
             <div class="form-alert" data-alert></div>
             <div class="field"><input class="input" type="text" name="name" placeholder="Your name" required></div>
             <div class="field"><input class="input" type="email" name="email" placeholder="Email" required></div>
-            <div class="field"><input class="input" type="tel" name="phone" placeholder="Phone"></div>
+            <div class="field"><input class="input" type="tel" name="phone" placeholder="Phone (10 digits)" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter a 10-digit mobile number"></div>
             <div class="field"><textarea class="textarea" name="message" rows="3" placeholder="I'd like to know more about this property…">I'm interested in <?= esc($p['title']) ?> (<?= esc($p['mls'] ?? $p['id']) ?>).</textarea></div>
             <button type="submit" class="btn btn--gold btn--block">Request Info</button>
             <a href="<?= base_url('public/contact') ?>?interest=Tour&source=<?= urlencode('Tour: ' . $p['title']) ?>" class="btn btn--navy btn--block mt-1"><ion-icon name="calendar-outline"></ion-icon> Schedule a Tour</a>

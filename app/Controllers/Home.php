@@ -71,9 +71,15 @@ class Home extends BaseController
         return $this->handleLead([
             'name'    => 'required|min_length[2]|max_length[120]',
             'email'   => 'required|valid_email|max_length[180]',
-            'phone'   => 'permit_empty|max_length[40]',
+            'phone'   => 'permit_empty|numeric|exact_length[10]',
             'message' => 'permit_empty|max_length[2000]',
-        ], 'lead');
+        ], 'lead', [
+            'phone' => [
+                'numeric'      => 'Mobile number must contain digits only.',
+                'exact_length' => 'Please enter a valid 10-digit mobile number.',
+            ],
+            'email' => ['valid_email' => 'Please enter a valid email address.'],
+        ]);
     }
 
     /**
@@ -90,14 +96,14 @@ class Home extends BaseController
      * Shared lead/subscriber handler: honeypot, validation, persistence + email.
      * Returns JSON for AJAX. Persistence degrades gracefully when no DB is set.
      */
-    private function handleLead(array $rules, string $kind)
+    private function handleLead(array $rules, string $kind, array $messages = [])
     {
         // Honeypot — silently accept bots without storing.
         if (trim((string) $this->request->getPost('company')) !== '') {
             return $this->jsonOk('Thank you!');
         }
 
-        if (! $this->validate($rules)) {
+        if (! $this->validate($rules, $messages)) {
             return $this->response->setStatusCode(422)->setJSON([
                 'status'  => 'error',
                 'message' => 'Please correct the highlighted fields.',

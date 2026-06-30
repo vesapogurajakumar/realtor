@@ -190,6 +190,17 @@
   };
   $$('[data-ajax-form]').forEach((f) => window.VestaForm.bind(f));
 
+  /* ---------- Phone inputs: digits only, max 10 ---------- */
+  $$('input[type="tel"]').forEach((el) => {
+    el.setAttribute('inputmode', 'numeric');
+    if (!el.getAttribute('maxlength')) el.setAttribute('maxlength', '10');
+    el.addEventListener('input', () => {
+      const max = parseInt(el.getAttribute('maxlength') || '10', 10);
+      const digits = el.value.replace(/\D/g, '').slice(0, max);
+      if (el.value !== digits) el.value = digits;
+    });
+  });
+
   /* ---------- Current year stamps ---------- */
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 })();

@@ -156,12 +156,28 @@ class Admin extends BaseController
     public function storeListing()
     {
         $rules = [
-            'title' => 'required|min_length[3]|max_length[180]',
-            'price' => 'required|numeric',
-            'city'  => 'required|max_length[90]',
+            'title'         => 'required|min_length[3]|max_length[180]',
+            'price'         => 'required|numeric|greater_than[0]',
+            'city'          => 'required|max_length[90]',
+            'beds'          => 'permit_empty|is_natural',
+            'baths'         => 'permit_empty|is_natural',
+            'sqft'          => 'permit_empty|is_natural',
+            'garage'        => 'permit_empty|is_natural',
+            'hoa'           => 'permit_empty|is_natural',
+            'year_built'    => 'permit_empty|numeric|exact_length[4]',
+            'walk_score'    => 'permit_empty|is_natural|less_than_equal_to[100]',
+            'transit_score' => 'permit_empty|is_natural|less_than_equal_to[100]',
+            'lat'           => 'permit_empty|decimal',
+            'lng'           => 'permit_empty|decimal',
+            'agent_email'   => 'permit_empty|valid_email|max_length[180]',
+            'agent_phone'   => 'permit_empty|numeric|exact_length[10]',
+        ];
+        $messages = [
+            'agent_phone' => ['exact_length' => 'Agent mobile number must be exactly 10 digits.', 'numeric' => 'Agent mobile must be digits only.'],
+            'price'       => ['greater_than' => 'Price must be greater than 0.'],
         ];
 
-        if (! $this->validate($rules)) {
+        if (! $this->validate($rules, $messages)) {
             return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('errors', $this->validator->getErrors());
         }
 

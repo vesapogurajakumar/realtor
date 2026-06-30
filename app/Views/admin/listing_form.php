@@ -91,7 +91,7 @@
     <div class="admin-grid2">
       <div class="field"><label>Name</label><input class="input" name="agent_name" value="<?= esc(old('agent_name'), 'attr') ?>"></div>
       <div class="field"><label>Title</label><input class="input" name="agent_title" value="<?= esc(old('agent_title'), 'attr') ?>" placeholder="Listing Advisor"></div>
-      <div class="field"><label>Phone</label><input class="input" name="agent_phone" value="<?= esc(old('agent_phone'), 'attr') ?>"></div>
+      <div class="field"><label>Phone</label><input class="input" type="tel" name="agent_phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter a 10-digit mobile number" value="<?= esc(old('agent_phone'), 'attr') ?>"></div>
       <div class="field"><label>Email</label><input class="input" type="email" name="agent_email" value="<?= esc(old('agent_email'), 'attr') ?>"></div>
     </div>
     <div class="field"><label>Agent Photo URL</label><input class="input" name="agent_photo" value="<?= esc(old('agent_photo'), 'attr') ?>"></div>
