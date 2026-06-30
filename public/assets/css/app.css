@@ -129,6 +129,13 @@ p  { color: var(--gray-700); }
   box-shadow: 0 6px 30px rgba(0,0,0,.18);
   padding-block: .7rem;
 }
+/* Pages without a dark hero (e.g. property detail, 404): keep the header solid
+   from the top so the white nav links stay visible over light backgrounds. */
+body.header-solid .site-header {
+  background: rgba(10,22,40,.96);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 30px rgba(0,0,0,.18);
+}
 .brand { display: inline-flex; align-items: center; gap: .65rem; font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; color: #fff; }
 .brand .brand-mark { width: 38px; height: 38px; flex: none; }
 .brand b { color: var(--gold); }

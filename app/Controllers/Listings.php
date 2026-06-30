@@ -77,6 +77,7 @@ class Listings extends BaseController
             'metaDescription' => reading_excerpt((string) ($property['description'] ?? ''), 160),
             'ogImage'         => $property['images'][0] ?? null,
             'activeNav'       => 'listings',
+            'bodyClass'       => 'header-solid',
             'property'        => $property,
             'similar'         => $svc->similar($id, 3),
             'jsonld'          => $this->jsonLd($property),

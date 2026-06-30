@@ -18,6 +18,7 @@ class Errors extends BaseController
         return view('errors/branded_404', [
             'title'           => 'Page Not Found | Vesta Real Estate',
             'metaDescription' => 'The page you were looking for could not be found.',
+            'bodyClass'       => 'header-solid',
             'featured'        => Services::property()->featured(3),
         ]);
     }
