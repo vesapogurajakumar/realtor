@@ -1,4 +1,24 @@
 {
+  "_instructions": {
+    "what_is_this": "This file holds the property listings shown on the site. Each item in 'properties' is one listing.",
+    "easiest_way_to_add": "Use the admin panel at /admin (menu > Add Listing) instead of editing this file by hand.",
+    "to_edit_here": [
+      "1. Copy one whole { ... } block inside 'properties'.",
+      "2. Paste it as a new block and put a comma between blocks.",
+      "3. Change the values. Give every listing a UNIQUE 'id' (e.g. prop_013).",
+      "4. Save. Changes appear within 5 minutes (the data is cached)."
+    ],
+    "required_fields": ["id", "title", "type", "status", "price", "city"],
+    "field_notes": {
+      "status": "Must be exactly: 'For Sale', 'For Rent', or 'Sold'.",
+      "featured": "true shows it in the Home page 'Featured' slider.",
+      "price": "A number only, no $ or commas. For rentals this is the monthly rent.",
+      "images": "List of photo URLs. The FIRST one is the cover image.",
+      "lat / lng": "Map pin coordinates. Get them from Google Maps: right-click a spot > click the coordinates to copy.",
+      "amenities": "Used by the Listings filter sidebar (must match the amenity checkboxes).",
+      "full_guide": "See public/data/README.md for every field explained + a blank template."
+    }
+  },
   "properties": [
     {
       "id": "prop_001",
