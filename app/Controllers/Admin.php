@@ -166,7 +166,13 @@ class Admin extends BaseController
         }
 
         try {
-            $code = (new PropertyModel())->createFromForm($this->request->getPost());
+            $input = $this->request->getPost();
+
+            // Merge uploaded files (saved to disk) with any pasted image URLs.
+            $pasted = array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', (string) ($input['images'] ?? '')) ?: [])));
+            $input['images'] = array_merge($this->handleImageUploads('images_files'), $pasted);
+
+            $code = (new PropertyModel())->createFromForm($input);
             if ($code === false) {
                 return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Could not save the listing.');
             }
@@ -241,6 +247,61 @@ class Admin extends BaseController
         } catch (\Throwable $e) {
             return redirect()->to(base_url('public/admin/comments'))->with('error', 'Could not update comment.');
         }
+    }
+
+    /**
+     * Save uploaded images to public/assets/uploads, downscale + compress large
+     * ones, and return their public URLs. Invalid/oversized files are skipped.
+     *
+     * @return array<int, string>
+     */
+    private function handleImageUploads(string $field): array
+    {
+        $paths   = [];
+        $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        $files   = $this->request->getFileMultiple($field);
+
+        if (empty($files)) {
+            return $paths;
+        }
+
+        $dir = FCPATH . 'assets' . DIRECTORY_SEPARATOR . 'uploads';
+        if (! is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+
+        foreach ($files as $file) {
+            if (! $file->isValid() || $file->hasMoved()) {
+                continue;
+            }
+            if (! in_array($file->getMimeType(), $allowed, true)) {
+                continue; // not an allowed image type
+            }
+            if ($file->getSizeByUnit('mb') > 8) {
+                continue; // too large
+            }
+
+            $name = $file->getRandomName();
+            $file->move($dir, $name);
+            $full = $dir . DIRECTORY_SEPARATOR . $name;
+
+            // Downscale (cap width at 1600px) + compress — skipped gracefully if GD is unavailable.
+            try {
+                $info = @getimagesize($full);
+                if ($info && $info[0] > 1600) {
+                    Services::image()
+                        ->withFile($full)
+                        ->resize(1600, 1600, true, 'width')
+                        ->save($full, 82);
+                }
+            } catch (\Throwable $e) {
+                log_message('warning', 'Image resize skipped: {m}', ['m' => $e->getMessage()]);
+            }
+
+            $paths[] = base_url('public/assets/uploads/' . $name);
+        }
+
+        return $paths;
     }
 
     // -------------------------------------------------------------- Helpers

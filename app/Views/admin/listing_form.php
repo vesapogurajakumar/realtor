@@ -14,7 +14,7 @@
   </div>
 <?php endif ?>
 
-<form action="<?= base_url('public/admin/listings') ?>" method="post">
+<form action="<?= base_url('public/admin/listings') ?>" method="post" enctype="multipart/form-data">
   <?= csrf_field() ?>
 
   <div class="admin-panel">
@@ -72,7 +72,12 @@
 
   <div class="admin-panel">
     <h3 style="font-family:var(--font-body); font-size:1.05rem; margin-bottom:1.2rem;">Media &amp; Details</h3>
-    <div class="field"><label>Image URLs (one per line)</label><textarea class="textarea" name="images" rows="3" placeholder="https://images.unsplash.com/..."><?= esc(old('images')) ?></textarea></div>
+    <div class="field">
+      <label>Upload Photos (from your computer)</label>
+      <input class="input" type="file" name="images_files[]" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+      <p class="muted" style="font-size:.82rem; margin-top:.4rem;">JPG/PNG/WebP/GIF, up to 8&nbsp;MB each. Large images are auto-resized &amp; compressed. The first photo (uploaded or URL) becomes the cover.</p>
+    </div>
+    <div class="field"><label>…or paste Image URLs (one per line)</label><textarea class="textarea" name="images" rows="3" placeholder="https://images.unsplash.com/..."><?= esc(old('images')) ?></textarea></div>
     <div class="admin-grid2">
       <div class="field"><label>Features (comma separated)</label><textarea class="textarea" name="features" rows="2" placeholder="Pool, Smart Home, 3-Car Garage"><?= esc(old('features')) ?></textarea></div>
       <div class="field"><label>Amenities (comma separated)</label><textarea class="textarea" name="amenities" rows="2" placeholder="Pool, Gym, Waterfront"><?= esc(old('amenities')) ?></textarea></div>

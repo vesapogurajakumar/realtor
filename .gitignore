@@ -9,6 +9,10 @@ writable/cache/*
 writable/leads/*
 writable/comments/*
 
+# Uploaded listing images (keep the folder, ignore the uploads)
+public/assets/uploads/*
+!public/assets/uploads/.gitkeep
+
 # Environment files
 .env
 .env.*
