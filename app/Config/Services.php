@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Services\BlogService;
+use App\Services\PropertyService;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -29,4 +31,28 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    /**
+     * Property dataset service (reads/filters/sorts public/data/properties.json).
+     */
+    public static function property(bool $getShared = true): PropertyService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('property');
+        }
+
+        return new PropertyService();
+    }
+
+    /**
+     * Blog dataset service (reads/queries public/data/blog.json).
+     */
+    public static function blog(bool $getShared = true): BlogService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('blog');
+        }
+
+        return new BlogService();
+    }
 }

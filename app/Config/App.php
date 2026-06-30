@@ -16,7 +16,30 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost:8080/';
+    public string $baseURL = 'http://localhost/realtor/';
+
+    /**
+     * Auto-detect the host from the incoming request so the site works the same
+     * on localhost, a LAN IP (e.g. http://192.168.1.19/realtor/ for mobile
+     * testing) or a real domain — without editing config each time. The
+     * application path ("/realtor/") is kept; change it here if you deploy
+     * under a different folder, or set app.baseURL in .env to lock a domain.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (PHP_SAPI !== 'cli' && ! empty($_SERVER['HTTP_HOST'])) {
+            $https  = (! empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+                || (($_SERVER['SERVER_PORT'] ?? null) == 443);
+            $scheme = $https ? 'https' : 'http';
+
+            // HTTP_HOST is validated below against the allowed hosts list.
+            $host = $_SERVER['HTTP_HOST'];
+
+            $this->baseURL = $scheme . '://' . $host . '/realtor/';
+        }
+    }
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
