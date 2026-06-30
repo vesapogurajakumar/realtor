@@ -12,7 +12,7 @@ $shareTxt = urlencode($post['title']);
 ?>
 <article>
   <header class="article-hero">
-    <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" fetchpriority="high">
+    <?= img_tag($post['featured_image'], $post['title'], ['width' => 1920, 'widths' => [768, 1280, 1920], 'sizes' => '100vw', 'quality' => 72, 'loading' => 'eager', 'fetchpriority' => 'high']) ?>
     <div class="container">
       <nav class="breadcrumb"><a href="<?= base_url('public/') ?>">Home</a><span>/</span><a href="<?= base_url('public/blog') ?>">Blog</a><span>/</span><span><?= esc($post['category']) ?></span></nav>
       <span class="tag-pill"><?= esc($post['category']) ?></span>
@@ -107,7 +107,7 @@ $shareTxt = urlencode($post['title']);
     <div class="card-grid">
       <?php foreach ($related as $rp): ?>
         <article class="post-card" data-aos="fade-up">
-          <a class="post-media" href="<?= base_url('public/blog/' . $rp['slug']) ?>"><img src="<?= esc($rp['featured_image']) ?>" alt="<?= esc($rp['title']) ?>" loading="lazy"></a>
+          <a class="post-media" href="<?= base_url('public/blog/' . $rp['slug']) ?>"><?= img_tag($rp['featured_image'], $rp['title'], ['width' => 700, 'widths' => [400, 600, 800], 'sizes' => '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 380px']) ?></a>
           <div class="post-body">
             <span class="tag-pill"><?= esc($rp['category']) ?></span>
             <h3><a href="<?= base_url('public/blog/' . $rp['slug']) ?>"><?= esc($rp['title']) ?></a></h3>

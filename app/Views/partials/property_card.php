@@ -13,7 +13,11 @@ $aos = $aos ?? true;
     <span class="badge <?= status_class($p['status'] ?? '') ?>"><?= esc($p['status'] ?? 'For Sale') ?></span>
     <span class="badge badge--type"><?= esc($p['type'] ?? 'Home') ?></span>
     <a href="<?= property_url($p['id']) ?>" aria-label="View <?= esc($p['title'] ?? 'property') ?>">
-      <img src="<?= esc($img) ?>" alt="<?= esc($p['title'] ?? 'Property') ?> in <?= esc($p['city'] ?? '') ?>" loading="lazy">
+      <?= img_tag($img, ($p['title'] ?? 'Property') . ' in ' . ($p['city'] ?? ''), [
+          'width'  => 640,
+          'widths' => [320, 480, 640, 960],
+          'sizes'  => '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 360px',
+      ]) ?>
     </a>
     <button class="save-btn" data-save="<?= esc($p['id'], 'attr') ?>" aria-label="Save this property">
       <ion-icon name="heart-outline"></ion-icon>

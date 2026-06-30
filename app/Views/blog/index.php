@@ -14,7 +14,7 @@
 $blogUrl = base_url('public/blog');
 ?>
 <section class="page-hero">
-  <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=1920&q=80" alt="Real estate insights" loading="eager">
+  <?= img_tag('https://images.unsplash.com/photo-1554469384-e58fac16e23a', 'Real estate insights', ['width' => 1920, 'widths' => [768, 1280, 1920], 'sizes' => '100vw', 'quality' => 72, 'loading' => 'eager', 'fetchpriority' => 'high']) ?>
   <div class="container">
     <nav class="breadcrumb"><a href="<?= base_url('public/') ?>">Home</a><span>/</span><span>Blog</span></nav>
     <h1>Insights &amp; Market Intelligence</h1>
@@ -36,7 +36,7 @@ $blogUrl = base_url('public/blog');
       <div>
         <?php if ($featured): ?>
           <a class="featured-post" href="<?= base_url('public/blog/' . $featured['slug']) ?>" data-aos="fade-up">
-            <img src="<?= esc($featured['featured_image']) ?>" alt="<?= esc($featured['title']) ?>">
+            <?= img_tag($featured['featured_image'], $featured['title'], ['width' => 1200, 'widths' => [600, 900, 1200, 1600], 'sizes' => '(max-width: 980px) 100vw, 66vw', 'loading' => 'eager']) ?>
             <div class="fp-body">
               <span class="tag-pill"><?= esc($featured['category']) ?></span>
               <h2 class="mt-1"><?= esc($featured['title']) ?></h2>
@@ -62,7 +62,7 @@ $blogUrl = base_url('public/blog');
             <?php foreach ($posts as $post): ?>
               <article class="post-card" data-aos="fade-up">
                 <a class="post-media" href="<?= base_url('public/blog/' . $post['slug']) ?>">
-                  <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" loading="lazy">
+                  <?= img_tag($post['featured_image'], $post['title'], ['width' => 700, 'widths' => [400, 600, 800], 'sizes' => '(max-width: 600px) 92vw, (max-width: 980px) 60vw, 380px']) ?>
                 </a>
                 <div class="post-body">
                   <span class="tag-pill"><?= esc($post['category']) ?></span>
@@ -95,7 +95,7 @@ $blogUrl = base_url('public/blog');
           <h4>Popular Posts</h4>
           <?php foreach ($popular as $pop): ?>
             <a class="popular-item" href="<?= base_url('public/blog/' . $pop['slug']) ?>">
-              <img src="<?= esc($pop['featured_image']) ?>" alt="<?= esc($pop['title']) ?>" loading="lazy">
+              <?= img_tag($pop['featured_image'], $pop['title'], ['width' => 160, 'widths' => [120, 160], 'sizes' => '70px']) ?>
               <div><h5><?= esc($pop['title']) ?></h5><span><?= nice_date($pop['date']) ?></span></div>
             </a>
           <?php endforeach ?>

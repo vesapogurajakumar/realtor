@@ -14,7 +14,14 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-media">
-    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1920&q=80" alt="Luxury home exterior at dusk" fetchpriority="high">
+    <?= img_tag('https://images.unsplash.com/photo-1564013799919-ab600027ffc6', 'Luxury home exterior at dusk', [
+        'width'         => 1920,
+        'widths'        => [768, 1280, 1920, 2400],
+        'sizes'         => '100vw',
+        'quality'       => 72,
+        'loading'       => 'eager',
+        'fetchpriority' => 'high',
+    ]) ?>
   </div>
   <div class="container">
     <div class="hero-inner">
@@ -156,7 +163,11 @@
       <?php foreach ($neighborhoods as $i => $hood): ?>
         <a class="hood-card" data-aos="zoom-in" data-aos-delay="<?= ($i % 3) * 100 ?>"
            href="<?= base_url('public/listings?city=' . urlencode($hood['city'])) ?>">
-          <img src="<?= esc($hood['image']) ?>" alt="<?= esc($hood['name']) ?>, <?= esc($hood['city']) ?>" loading="lazy">
+          <?= img_tag($hood['image'], $hood['name'] . ', ' . $hood['city'], [
+              'width'  => 800,
+              'widths' => [400, 600, 800],
+              'sizes'  => '(max-width: 540px) 92vw, (max-width: 860px) 46vw, 380px',
+          ]) ?>
           <div class="hood-body">
             <span class="hood-count"><?= esc($hood['city']) ?>, <?= esc($hood['state']) ?></span>
             <h3><?= esc($hood['name']) ?></h3>
@@ -215,7 +226,11 @@
       <?php foreach ($posts as $post): ?>
         <article class="post-card" data-aos="fade-up">
           <a class="post-media" href="<?= base_url('public/blog/' . $post['slug']) ?>">
-            <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" loading="lazy">
+            <?= img_tag($post['featured_image'], $post['title'], [
+                'width'  => 700,
+                'widths' => [400, 600, 800],
+                'sizes'  => '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 380px',
+            ]) ?>
           </a>
           <div class="post-body">
             <span class="tag-pill"><?= esc($post['category']) ?></span>

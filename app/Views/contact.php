@@ -18,7 +18,7 @@ $prefInterest = (string) (service('request')->getGet('interest') ?? '');
 $prefSource   = (string) (service('request')->getGet('source') ?? '');
 ?>
 <section class="page-hero" style="padding:calc(var(--header-h) + 60px) 0 60px;">
-  <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80" alt="Modern office" loading="eager">
+  <?= img_tag('https://images.unsplash.com/photo-1497366754035-f200968a6e72', 'Modern office', ['width' => 1920, 'widths' => [768, 1280, 1920], 'sizes' => '100vw', 'quality' => 72, 'loading' => 'eager', 'fetchpriority' => 'high']) ?>
   <div class="container">
     <nav class="breadcrumb"><a href="<?= base_url('public/') ?>">Home</a><span>/</span><span>Contact</span></nav>
     <h1>Let's Find Your Next Home</h1>

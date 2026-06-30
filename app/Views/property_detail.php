@@ -29,8 +29,14 @@ $isRent = strtolower((string) ($p['status'] ?? '')) === 'for rent';
         <div class="swiper-wrapper">
           <?php foreach ($images as $i => $img): ?>
             <div class="swiper-slide">
-              <a href="<?= esc($img) ?>" class="glightbox" data-gallery="property">
-                <img src="<?= esc($img) ?>" alt="<?= esc($p['title']) ?> photo <?= $i + 1 ?>" <?= $i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+              <a href="<?= esc(img_url($img, 1600, 80)) ?>" class="glightbox" data-gallery="property">
+                <?= img_tag($img, $p['title'] . ' photo ' . ($i + 1), [
+                    'width'         => 1200,
+                    'widths'        => [600, 900, 1200, 1600],
+                    'sizes'         => '(max-width: 1000px) 100vw, 66vw',
+                    'loading'       => $i === 0 ? 'eager' : 'lazy',
+                    'fetchpriority' => $i === 0 ? 'high' : '',
+                ]) ?>
               </a>
             </div>
           <?php endforeach ?>
@@ -40,7 +46,7 @@ $isRent = strtolower((string) ($p['status'] ?? '')) === 'for rent';
       <div class="swiper gallery-thumbs">
         <div class="swiper-wrapper">
           <?php foreach ($images as $img): ?>
-            <div class="swiper-slide"><img src="<?= esc($img) ?>" alt="thumbnail" loading="lazy"></div>
+            <div class="swiper-slide"><?= img_tag($img, 'thumbnail', ['width' => 220, 'widths' => [140, 220], 'sizes' => '120px']) ?></div>
           <?php endforeach ?>
         </div>
       </div>

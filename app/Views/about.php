@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <?php /** @var array<int,array> $team */ ?>
 <section class="page-hero" style="padding:calc(var(--header-h) + 70px) 0 70px;">
-  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Luxury interior" loading="eager">
+  <?= img_tag('https://images.unsplash.com/photo-1600585154340-be6161a56a0c', 'Luxury interior', ['width' => 1920, 'widths' => [768, 1280, 1920], 'sizes' => '100vw', 'quality' => 72, 'loading' => 'eager', 'fetchpriority' => 'high']) ?>
   <div class="container">
     <nav class="breadcrumb"><a href="<?= base_url('public/') ?>">Home</a><span>/</span><span>About</span></nav>
     <h1>A Boutique Brokerage,<br>Built on Trust</h1>
@@ -23,7 +23,7 @@
         <a href="<?= base_url('public/contact') ?>" class="btn btn--navy mt-2">Work With Us <ion-icon name="arrow-forward-outline"></ion-icon></a>
       </div>
       <div data-aos="fade-left">
-        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Vesta team at work" style="border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);" loading="lazy">
+        <?= img_tag('https://images.unsplash.com/photo-1497366811353-6870744d04b2', 'Vesta team at work', ['width' => 900, 'widths' => [500, 700, 900], 'sizes' => '(max-width: 900px) 92vw, 50vw', 'style' => 'border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);']) ?>
       </div>
     </div>
   </div>

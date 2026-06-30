@@ -36,6 +36,10 @@ $activeNav       = $activeNav       ?? '';
 
   <link rel="shortcut icon" href="<?= base_url('public/favicon.ico') ?>">
 
+  <!-- Perf: warm up image + font CDNs early -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

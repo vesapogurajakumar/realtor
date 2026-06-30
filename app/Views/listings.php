@@ -21,7 +21,7 @@
 $p = $params;
 ?>
 <section class="page-hero">
-  <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80" alt="City skyline" loading="eager">
+  <?= img_tag('https://images.unsplash.com/photo-1512917774080-9991f1c4c750', 'City skyline', ['width' => 1920, 'widths' => [768, 1280, 1920], 'sizes' => '100vw', 'quality' => 72, 'loading' => 'eager', 'fetchpriority' => 'high']) ?>
   <div class="container">
     <nav class="breadcrumb"><a href="<?= base_url('public/') ?>">Home</a><span>/</span><span>Listings</span></nav>
     <h1>Find Your Next Home</h1>
