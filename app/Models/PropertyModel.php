@@ -71,7 +71,7 @@ class PropertyModel extends Model
     }
 
     /**
-     * Build a storable row from admin-form input and insert it.
+     * Create a listing from admin-form input.
      * Returns the generated listing code on success, or false on failure.
      *
      * @param array<string, mixed> $input
@@ -79,6 +79,33 @@ class PropertyModel extends Model
      * @return string|false
      */
     public function createFromForm(array $input)
+    {
+        $row         = $this->buildRow($input);
+        $row['code'] = 'prop_' . substr(md5(($input['title'] ?? '') . microtime(true)), 0, 8);
+
+        return $this->insert($row, false) ? $row['code'] : false;
+    }
+
+    /**
+     * Update an existing listing from admin-form input. The listing code is
+     * preserved (so its URL never changes).
+     *
+     * @param int|string           $id
+     * @param array<string, mixed> $input
+     */
+    public function updateFromForm($id, array $input): bool
+    {
+        return (bool) $this->update($id, $this->buildRow($input));
+    }
+
+    /**
+     * Build a storable row (minus the listing code) from admin-form input.
+     *
+     * @param array<string, mixed> $input
+     *
+     * @return array<string, mixed>
+     */
+    private function buildRow(array $input): array
     {
         $toList = static function ($val): array {
             if (is_array($val)) {
@@ -88,10 +115,7 @@ class PropertyModel extends Model
             return array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', (string) $val) ?: [])));
         };
 
-        $code = 'prop_' . substr(md5(($input['title'] ?? '') . microtime(true)), 0, 8);
-
-        $row = [
-            'code'          => $code,
+        return [
             'title'         => trim((string) ($input['title'] ?? '')),
             'type'          => trim((string) ($input['type'] ?? 'Single Family')),
             'status'        => trim((string) ($input['status'] ?? 'For Sale')),
@@ -130,7 +154,5 @@ class PropertyModel extends Model
             ]),
             'pois'          => json_encode([]),
         ];
-
-        return $this->insert($row, false) ? $code : false;
     }
 }

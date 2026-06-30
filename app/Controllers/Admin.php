@@ -155,7 +155,69 @@ class Admin extends BaseController
 
     public function storeListing()
     {
-        $rules = [
+        if (! $this->validate($this->listingRules(), $this->listingMessages())) {
+            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        try {
+            $code = (new PropertyModel())->createFromForm($this->listingInput());
+            if ($code === false) {
+                return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Could not save the listing.');
+            }
+            Services::property()->clearCache();
+
+            return redirect()->to(base_url('public/admin/listings'))
+                ->with('message', 'Listing published! It is now live on the site.');
+        } catch (\Throwable $e) {
+            log_message('error', 'Listing save failed: {m}', ['m' => $e->getMessage()]);
+
+            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Database error. Make sure migrations have run.');
+        }
+    }
+
+    public function editListing(int $id)
+    {
+        $model = new PropertyModel();
+        $row   = $model->find($id);
+        if ($row === null) {
+            return redirect()->to(base_url('public/admin/listings'))->with('error', 'Listing not found.');
+        }
+
+        return view('admin/listing_form', [
+            'title'   => 'Edit Listing | Vesta Admin',
+            'active'  => 'listings',
+            'listing' => $model->normalize($row),
+            'action'  => base_url('public/admin/listings/' . $id . '/update'),
+        ]);
+    }
+
+    public function updateListing(int $id)
+    {
+        $editUrl = base_url('public/admin/listings/' . $id . '/edit');
+
+        if (! $this->validate($this->listingRules(), $this->listingMessages())) {
+            return redirect()->to($editUrl)->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        try {
+            if ((new PropertyModel())->updateFromForm($id, $this->listingInput())) {
+                Services::property()->clearCache();
+
+                return redirect()->to(base_url('public/admin/listings'))->with('message', 'Listing updated.');
+            }
+
+            return redirect()->to($editUrl)->withInput()->with('error', 'Could not update the listing.');
+        } catch (\Throwable $e) {
+            log_message('error', 'Listing update failed: {m}', ['m' => $e->getMessage()]);
+
+            return redirect()->to($editUrl)->withInput()->with('error', 'Database error while updating.');
+        }
+    }
+
+    /** Shared listing validation rules. */
+    private function listingRules(): array
+    {
+        return [
             'title'         => 'required|min_length[3]|max_length[180]',
             'price'         => 'required|numeric|greater_than[0]',
             'city'          => 'required|max_length[90]',
@@ -172,35 +234,29 @@ class Admin extends BaseController
             'agent_email'   => 'permit_empty|valid_email|max_length[180]',
             'agent_phone'   => 'permit_empty|numeric|exact_length[10]',
         ];
-        $messages = [
+    }
+
+    private function listingMessages(): array
+    {
+        return [
             'agent_phone' => ['exact_length' => 'Agent mobile number must be exactly 10 digits.', 'numeric' => 'Agent mobile must be digits only.'],
             'price'       => ['greater_than' => 'Price must be greater than 0.'],
         ];
+    }
 
-        if (! $this->validate($rules, $messages)) {
-            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('errors', $this->validator->getErrors());
-        }
+    /**
+     * Build the listing input array: form fields + uploaded images merged with
+     * any pasted/kept image URLs (used by both create and update).
+     *
+     * @return array<string, mixed>
+     */
+    private function listingInput(): array
+    {
+        $input  = $this->request->getPost();
+        $pasted = array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', (string) ($input['images'] ?? '')) ?: [])));
+        $input['images'] = array_merge($this->handleImageUploads('images_files'), $pasted);
 
-        try {
-            $input = $this->request->getPost();
-
-            // Merge uploaded files (saved to disk) with any pasted image URLs.
-            $pasted = array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', (string) ($input['images'] ?? '')) ?: [])));
-            $input['images'] = array_merge($this->handleImageUploads('images_files'), $pasted);
-
-            $code = (new PropertyModel())->createFromForm($input);
-            if ($code === false) {
-                return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Could not save the listing.');
-            }
-            Services::property()->clearCache();
-
-            return redirect()->to(base_url('public/admin/listings'))
-                ->with('message', 'Listing published! It is now live on the site.');
-        } catch (\Throwable $e) {
-            log_message('error', 'Listing save failed: {m}', ['m' => $e->getMessage()]);
-
-            return redirect()->to(base_url('public/admin/listings/new'))->withInput()->with('error', 'Database error. Make sure migrations have run.');
-        }
+        return $input;
     }
 
     public function deleteListing(int $id)

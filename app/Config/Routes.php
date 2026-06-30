@@ -41,6 +41,8 @@ $routes->group('admin', ['filter' => 'adminauth'], static function ($routes) {
     $routes->get('listings', 'Admin::listings');
     $routes->get('listings/new', 'Admin::createListing');
     $routes->post('listings', 'Admin::storeListing');
+    $routes->get('listings/(:num)/edit', 'Admin::editListing/$1');
+    $routes->post('listings/(:num)/update', 'Admin::updateListing/$1');
     $routes->post('listings/(:num)/delete', 'Admin::deleteListing/$1');
     $routes->get('leads', 'Admin::leads');
     $routes->get('leads/export', 'Admin::exportLeads');
