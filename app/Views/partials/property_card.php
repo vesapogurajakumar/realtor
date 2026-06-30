@@ -18,9 +18,6 @@ $aos = $aos ?? true;
     <button class="save-btn" data-save="<?= esc($p['id'], 'attr') ?>" aria-label="Save this property">
       <ion-icon name="heart-outline"></ion-icon>
     </button>
-    <?php if (! empty($p['agent']['photo'])): ?>
-      <img class="property-agent" src="<?= esc($p['agent']['photo']) ?>" alt="<?= esc($p['agent']['name'] ?? 'Agent') ?>" loading="lazy" title="<?= esc($p['agent']['name'] ?? '') ?>">
-    <?php endif ?>
   </div>
   <div class="property-body">
     <p class="property-price"><?= price_label($p) ?></p>
