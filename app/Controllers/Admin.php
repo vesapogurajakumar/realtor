@@ -314,7 +314,9 @@ class Admin extends BaseController
                 log_message('warning', 'Image resize skipped: {m}', ['m' => $e->getMessage()]);
             }
 
-            $paths[] = base_url('public/assets/uploads/' . $name);
+            // Store a host-relative path so the image works on localhost, LAN IP
+            // (mobile) or a real domain — never bake the host into the URL.
+            $paths[] = parse_url(base_url('public/assets/uploads/' . $name), PHP_URL_PATH);
         }
 
         return $paths;

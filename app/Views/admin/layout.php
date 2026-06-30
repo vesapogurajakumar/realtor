@@ -20,8 +20,13 @@ $nav    = [
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
+  <header class="admin-mobilebar">
+    <button class="admin-burger" data-admin-burger aria-label="Open menu" aria-expanded="false"><ion-icon name="menu-outline"></ion-icon></button>
+    <a href="<?= base_url('public/admin') ?>" class="brand" style="color:#fff; font-size:1.2rem;">Ves<b style="color:var(--gold);">ta</b> <span style="font-size:.65rem; opacity:.6;">ADMIN</span></a>
+  </header>
+  <div class="admin-overlay" data-admin-overlay></div>
   <div class="admin-shell">
-    <aside class="admin-side">
+    <aside class="admin-side" data-admin-side>
       <a href="<?= base_url('public/admin') ?>" class="brand" style="color:#fff;">Ves<b style="color:var(--gold);">ta</b> <span style="font-size:.7rem; opacity:.6;">ADMIN</span></a>
       <nav>
         <?php foreach ($nav as $key => $item): ?>
@@ -42,5 +47,23 @@ $nav    = [
       <?= $this->renderSection('admin_content') ?>
     </main>
   </div>
+
+  <script>
+    (function () {
+      var burger  = document.querySelector('[data-admin-burger]');
+      var side    = document.querySelector('[data-admin-side]');
+      var overlay = document.querySelector('[data-admin-overlay]');
+      function setOpen(open) {
+        if (side) side.classList.toggle('is-open', open);
+        if (overlay) overlay.classList.toggle('is-open', open);
+        if (burger) burger.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      if (burger)  burger.addEventListener('click', function () { setOpen(!side.classList.contains('is-open')); });
+      if (overlay) overlay.addEventListener('click', function () { setOpen(false); });
+      document.querySelectorAll('.admin-side a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    })();
+  </script>
 </body>
 </html>

@@ -52,6 +52,17 @@ class PropertyModel extends Model
             $decoded   = json_decode((string) ($row[$f] ?? ''), true);
             $row[$f]   = is_array($decoded) ? $decoded : ($f === 'agent' ? [] : []);
         }
+
+        // Make uploaded-image URLs host-relative so they work on any host
+        // (localhost / LAN IP / domain), even if an absolute URL was stored.
+        $row['images'] = array_map(static function ($u) {
+            if (is_string($u) && strpos($u, '/assets/uploads/') !== false) {
+                return parse_url($u, PHP_URL_PATH) ?: $u;
+            }
+
+            return $u;
+        }, (array) ($row['images'] ?? []));
+
         $row['id']       = $row['code'] ?? ('db-' . ($row['id'] ?? ''));
         $row['featured'] = (bool) ($row['featured'] ?? false);
         $row['price']    = (int) ($row['price'] ?? 0);
